@@ -4,10 +4,10 @@ export interface Context {
   app: App<Element>
 }
 export type UserModule = (ctx: Context) => void
-export type RouteModule = {
-  path: string;
-  name: string;
-  component: Promise<typeof import("*.vue")>
+export interface RouteModule {
+  path: string
+  name: string
+  component: Promise<typeof import('*.vue')>
 }
 export interface ClientOptions {
   /**
@@ -17,7 +17,6 @@ export interface ClientOptions {
    */
   rootContainer?: string | Element
 }
-
-export interface FetchResponse<T> {
+declare interface FetchResponse<T> {
   body: T
 }

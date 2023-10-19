@@ -6,8 +6,5 @@ import { vFetch } from '~/utils'
  * @returns {Promise<import('~/types').FetchResponse<string>>}
  */
 export function postLamps(params) {
-  return vFetch('/lamp', {})
+  return vFetch('/login/getVerifyImg', params)
 }
-
-postLamps('').then((res) => {
-})

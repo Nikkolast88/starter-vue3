@@ -4,9 +4,9 @@
  */
 export function generatedRoutes() {
   /**
-   * @type {Record<string, {default: import('~/types').RouteModule}>}
+   * @type {Record<string, {default?: import('~/types').RouteModule}>}
    */
-  const modules = import.meta.glob(['../router/*.ts', '../pages/**/route.ts'], { eager: true })
+  const modules = import.meta.glob(['../router/*.js', '../pages/**/route.js'], { eager: true })
   const routes = Object.values(modules).map(i => i.default).flat()
   return routes.filter(i => i !== undefined)
 }
