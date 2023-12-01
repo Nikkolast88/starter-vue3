@@ -44,5 +44,6 @@
       "source": "./fixtures/output/**/*.*",
       "target": "./fixtures/input/<base>"
     }
-  ]
+  ],
+  "editor.inlineSuggest.showToolbar": "onHover"
 }
