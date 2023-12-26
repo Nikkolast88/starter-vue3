@@ -2,8 +2,8 @@ import { createI18n } from 'vue-i18n'
 
 const i18n = createI18n({
   legacy: false,
-  locale: '',
-  messages: {},
+  locale: 'en', // 设置默认语言
+  messages: {}, // 预先加载的语言包
 })
 
 /**
@@ -40,23 +40,25 @@ function setI18nLanguage(lang) {
  * @returns {Promise<import('vue-i18n').Locale>} 当前设置的语言
  */
 export async function loadLanguageAsync(lang) {
-  if (i18n.global.locale.value === lang)
+  if (i18n.global.locale.value === lang || loadedLanguages.includes(lang))
     return setI18nLanguage(lang)
-
-  if (loadedLanguages.includes(lang))
+  try {
+    const messages = await import(`../../locales/${lang}.yml`).then(mod => mod.default)
+    i18n.global.setLocaleMessage(lang, messages)
+    loadedLanguages.push(lang)
     return setI18nLanguage(lang)
-
-  const messages = await localesMap[lang]()
-  i18n.global.setLocaleMessage(lang, messages.default)
-  loadedLanguages.push(lang)
-  return setI18nLanguage(lang)
+  }
+  catch (error) {
+    console.error(`Failed to load language: ${lang}, error: ${error}`)
+    return setI18nLanguage(i18n.global.locale.value) // 尝试恢复到先前的语言
+  }
 }
 
 /**
  *
  * @type {import('~/types').UserModule}
  */
-export function install({ app }) {
+export async function install({ app }) {
   app.use(i18n)
-  loadLanguageAsync('en')
+  await loadLanguageAsync('en') // 首先加载默认语言
 }

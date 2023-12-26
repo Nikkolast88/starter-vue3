@@ -7,53 +7,74 @@ const instance = ofetch.create({
   headers: {
     'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
   },
-  onRequest,
-  onRequestError,
-  onResponse,
-  onResponseError,
+  onRequest: prepareRequest,
+  onRequestError: handleRequestError,
+  onResponse: handleResponse,
+  onResponseError: handleResponseError,
 })
 
 /**
- * 请求
- * @param {import('ofetch').FetchContext} ctx
+ * 创建一个 AbortController
+ * @param {string} url 请求的URL
+ * @returns {AbortController} 返回一个 AbortController 实例
  */
-async function onRequest(ctx) {
-  if (pendingMap.has(ctx.request.url)) {
-    pendingMap.get(ctx.url).abort()
+function createAbortController(url) {
+  let controller = pendingMap.get(url)
+  if (controller) {
+    controller.abort()
   }
   else {
-    const controller = new AbortController()
-    pendingMap.set(ctx.request.url, controller)
-    ctx.options = { ...ctx.options, signal: controller.signal }
+    controller = new AbortController()
+    pendingMap.set(url, controller)
   }
+  return controller
 }
 
 /**
- * 请求错误
+ * 准备请求
  * @param {import('ofetch').FetchContext} ctx
  */
-async function onRequestError(ctx) {
+async function prepareRequest(ctx) {
+  const controller = createAbortController(ctx.request.url)
+  ctx.options = { ...ctx.options, signal: controller.signal }
+}
+
+/**
+ * 请求错误处理
+ * @param {import('ofetch').FetchContext} ctx
+ */
+async function handleRequestError(ctx) {
+  const controller = pendingMap.get(ctx.request.url)
+  if (controller)
+    controller.abort()
+
+  pendingMap.delete(ctx.request.url)
+  console.error(`Request error for URL: ${ctx.request.url}`, ctx.error)
+}
+
+/**
+ * 响应处理
+ * @param {import('ofetch').FetchContext} ctx
+ */
+async function handleResponse(ctx) {
   pendingMap.delete(ctx.request.url)
 }
 
 /**
- * 响应
+ * 响应错误处理
  * @param {import('ofetch').FetchContext} ctx
  */
-async function onResponse(ctx) {
+async function handleResponseError(ctx) {
+  const controller = pendingMap.get(ctx.request.url)
+  if (controller)
+    controller.abort()
+
   pendingMap.delete(ctx.request.url)
+  console.error(`Response error for URL: ${ctx.request.url}`, ctx.error)
 }
 
 /**
- * 响应错误
- * @param {import('ofetch').FetchContext} ctx
- */
-async function onResponseError(ctx) {
-  pendingMap.delete(ctx.request.url)
-}
-
-/**
- *
+ * 发起请求
  * @template T
  * @param {string} url 请求地址
  * @param {import('ofetch').FetchOptions} [options] 参数
