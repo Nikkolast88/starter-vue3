@@ -6,10 +6,10 @@
     "checkJs": false,
     "allowJs": true,
     "lib": ["DOM", "ESNext"],
-    "esModuleInterop":true,
-    "resolveJsonModule":true,
-    "isolatedModules":true,
-    "skipLibCheck":true,
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "skipLibCheck": true,
     "baseUrl": ".",
     "paths": {
       "~/*": ["src/*"]

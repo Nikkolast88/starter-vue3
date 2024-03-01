@@ -1,8 +1,7 @@
 <script setup>
 import { postLamps } from '~/services/api'
 
-postLamps({}).then((res) => {
-  console.log(res)
+postLamps({}).then(() => {
 })
 </script>
 

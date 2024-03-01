@@ -9,7 +9,7 @@ const i18n = createI18n({
 /**
  * @type { Record<string, () => Promise<{ default: Record<string, string>}>>}
  */
-const modules = import.meta.glob('../../locales/*.yml')
+const modules = import.meta.glob('/locales/*.yml')
 
 const localesMap = Object.fromEntries(
   Object.entries(modules)
