@@ -11,7 +11,7 @@ export const createApp = createUnplugin(App, { routes }, (ctx) => {
    * 由于没有提供modules的结构，这里假设每个模块都会导出一个对象
    * @type {Record<string, {install?: import('~/types').UserModule}>}
    */
-  Object.values(import.meta.glob('./modules/*.js')).forEach((module) => {
+  Object.values(import.meta.glob('./modules/*.js', { eager: true })).forEach((module) => {
     try {
       // 尝试调用install方法，如果存在的话
       module.install?.(ctx)

@@ -40,7 +40,7 @@ function setI18nLanguage(lang) {
  * @returns {Promise<import('vue-i18n').Locale>} 当前设置的语言
  */
 export async function loadLanguageAsync(lang) {
-  if (i18n.global.locale.value === lang || loadedLanguages.includes(lang))
+  if (i18n.global.locale.value === lang && loadedLanguages.includes(lang))
     return setI18nLanguage(lang)
   try {
     const messages = await import(`../../locales/${lang}.yml`).then(mod => mod.default)
