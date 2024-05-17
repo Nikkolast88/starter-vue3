@@ -3,10 +3,9 @@ import { useI18n } from 'vue-i18n'
 import { postLamps } from '~/services/api'
 
 const { t } = useI18n()
-postLamps({}).then(() => {
-})
+postLamps({}).then(() => {})
 </script>
 
 <template>
-  <div>{{ t('hello world') }}</div>
+  <div>{{ t("hello world") }}</div>
 </template>
