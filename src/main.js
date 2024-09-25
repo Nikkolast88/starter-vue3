@@ -1,7 +1,7 @@
-import 'virtual:env'
+import { createUnplugin, generatedRoutes } from '~/utils'
 
 import App from './App.vue'
-import { createUnplugin, generatedRoutes } from '~/utils'
+import 'virtual:env'
 
 const routes = generatedRoutes()
 

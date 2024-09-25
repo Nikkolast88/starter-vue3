@@ -83,4 +83,4 @@ async function handleResponseError(ctx) {
 async function vFetch(url, options) {
   return instance(url, options)
 }
-export { vFetch, ofetch as oFetch }
+export { ofetch as oFetch, vFetch }
