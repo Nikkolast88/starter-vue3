@@ -1,7 +1,8 @@
+/* eslint-disable perfectionist/sort-imports */
+import 'virtual:env'
 import { createUnplugin, generatedRoutes } from '~/utils'
 
 import App from './App.vue'
-import 'virtual:env'
 
 const routes = generatedRoutes()
 
