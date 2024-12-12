@@ -2,6 +2,7 @@ import path from 'node:path'
 import VueI18n from '@intlify/unplugin-vue-i18n/vite'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
+import UnoCSS from 'unocss/vite'
 import Unplugin from 'unplugin-env/vite'
 import { defineConfig } from 'vite'
 
@@ -20,6 +21,7 @@ export default defineConfig({
       include: [path.resolve(__dirname, 'locales/**')],
     }),
     Unplugin(),
+    UnoCSS(),
   ],
   resolve: {
     alias: {

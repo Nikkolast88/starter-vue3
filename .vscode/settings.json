@@ -45,5 +45,8 @@
       "target": "./fixtures/input/<base>"
     }
   ],
-  "editor.inlineSuggest.showToolbar": "onHover"
+  "editor.inlineSuggest.showToolbar": "onHover",
+  "i18n-ally.localesPaths": [
+    "locales"
+  ]
 }
