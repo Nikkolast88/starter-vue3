@@ -1,10 +1,10 @@
 import { FileSystemIconLoader } from '@iconify/utils/lib/loader/node-loaders'
-import { defineConfig, presetAttributify, presetIcons, presetUno, transformerAttributifyJsx, transformerDirectives } from 'unocss'
+import { defineConfig, presetAttributify, presetIcons, presetWind4, transformerAttributifyJsx, transformerDirectives } from 'unocss'
 
 export default defineConfig({
   presets: [
     presetAttributify(),
-    presetUno(),
+    presetWind4(),
     presetIcons({
       extraProperties: {
         'display': 'inline-block',

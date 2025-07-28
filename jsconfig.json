@@ -1,21 +1,21 @@
 {
   "compilerOptions": {
-    "moduleResolution": "bundler",
-    "module": "ESNext",
     "target": "ESNext",
-    "checkJs": false,
-    "allowJs": true,
     "lib": ["DOM", "ESNext"],
-    "esModuleInterop": true,
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "skipLibCheck": true,
     "baseUrl": ".",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
     "paths": {
       "~/*": ["src/*"]
     },
-    "types": ["vite/client"]
+    "resolveJsonModule": true,
+    "types": ["vite/client"],
+    "allowJs": true,
+    "checkJs": false,
+    "esModuleInterop": true,
+    "isolatedModules": true,
+    "skipLibCheck": true
   },
-  "exclude": ["node_modules", "dist"],
-  "include": ["./src/**/*.d.ts", "./src/**/*.js", "./src/**/*.vue"]
+  "include": ["./src/**/*.d.ts", "./src/**/*.js", "./src/**/*.vue"],
+  "exclude": ["node_modules", "dist"]
 }
