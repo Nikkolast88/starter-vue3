@@ -2,7 +2,8 @@ import { ofetch } from 'ofetch'
 
 const pendingMap = new Map()
 const instance = ofetch.create({
-  baseURL: window.manifest.API,
+  // Prefer runtime manifest API, fallback to Vite env or empty (relative) base
+  baseURL: (typeof window !== 'undefined' && window.manifest && window.manifest.API) || import.meta.env.VITE_API || '',
   timeout: 3000,
   headers: {
     'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',

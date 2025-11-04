@@ -7,6 +7,7 @@ const i18n = createI18n({
 })
 
 /**
+ * 使用 import.meta.glob 统一收集本地化资源加载器
  * @type { Record<string, () => Promise<{ default: Record<string, string>}>>}
  */
 const modules = import.meta.glob('/locales/*.yml')
@@ -43,7 +44,12 @@ export async function loadLanguageAsync(lang) {
   if (i18n.global.locale.value === lang && loadedLanguages.includes(lang))
     return setI18nLanguage(lang)
   try {
-    const messages = await import(`../../locales/${lang}.yml`).then(mod => mod.default)
+    const loader = localesMap[lang]
+    if (!loader) {
+      console.warn(`[i18n] Locale not found: ${lang}. Available: ${availableLocales.join(', ')}`)
+      return setI18nLanguage(i18n.global.locale.value)
+    }
+    const messages = await loader().then(mod => mod.default)
     i18n.global.setLocaleMessage(lang, messages)
     loadedLanguages.push(lang)
     return setI18nLanguage(lang)
