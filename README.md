@@ -3,7 +3,7 @@
 [![NPM version](https://img.shields.io/npm/v/starter-vue3?color=a1b858&label=)](https://www.npmjs.com/package/starter-vue3)
 [![CI](https://github.com/Nikkolast88/starter-vue3/actions/workflows/ci.yml/badge.svg)](https://github.com/Nikkolast88/starter-vue3/actions/workflows/ci.yml)
 [![npm downloads](https://img.shields.io/npm/dm/starter-vue3)](https://www.npmjs.com/package/starter-vue3)
-[![License](https://img.shields.io/npm/l/starter-vue3)](./LICENSE)
+[![License](https://img.shields.io/github/license/Nikkolast88/starter-vue3)](https://github.com/Nikkolast88/starter-vue3/blob/next/LICENSE)
 
 This template should help get you started developing with Vue 3 in Vite.
 
