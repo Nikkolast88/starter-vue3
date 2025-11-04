@@ -1,7 +1,7 @@
 {
   "name": "starter-vue3",
   "type": "module",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "packageManager": "pnpm@9.15.9",
   "description": "Vue3 + Vite starter template with TypeScript, Pinia, Vue Router, i18n, UnoCSS, ESLint, and more.",
   "license": "MIT",
