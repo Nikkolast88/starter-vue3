@@ -6,7 +6,7 @@
   "description": "Vue3 + Vite starter template with TypeScript, Pinia, Vue Router, i18n, UnoCSS, ESLint, and more.",
   "license": "MIT",
   "engines": {
-    "node": ">=18"
+    "node": "^20.19.0 || >=22.12.0"
   },
   "browserslist": [
     "Chrome >= 89",
@@ -24,23 +24,23 @@
   "dependencies": {
     "lodash": "^4.17.21",
     "ofetch": "^1.5.1",
-    "pinia": "^3.0.3",
-    "vue": "^3.5.22",
-    "vue-i18n": "^11.1.12",
+    "pinia": "^3.0.4",
+    "vue": "^3.5.25",
+    "vue-i18n": "^11.2.2",
     "vue-router": "^4.6.3"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^6.2.0",
     "@intlify/unplugin-vue-i18n": "^11.0.1",
-    "@vitejs/plugin-vue": "^6.0.1",
-    "@vitejs/plugin-vue-jsx": "^5.1.1",
+    "@vitejs/plugin-vue": "^6.0.2",
+    "@vitejs/plugin-vue-jsx": "^5.1.2",
     "bumpp": "^10.3.1",
     "eslint": "^9.39.1",
-    "lint-staged": "^16.2.6",
+    "lint-staged": "^16.2.7",
     "simple-git-hooks": "^2.13.1",
-    "unocss": "^66.5.4",
+    "unocss": "^66.5.9",
     "unplugin-env": "^1.0.2",
-    "vite": "^7.1.12"
+    "vite": "^7.2.4"
   },
   "simple-git-hooks": {
     "pre-commit": "pnpm lint-staged"
