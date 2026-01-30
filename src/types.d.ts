@@ -4,11 +4,6 @@ export interface Context {
   app: App<Element>
 }
 export type UserModule = (ctx: Context) => void
-export interface RouteModule {
-  path: string
-  name: string
-  component: Promise<typeof import('*.vue')>
-}
 export interface ClientOptions {
   /**
    * The application's root container query selector.
