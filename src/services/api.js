@@ -2,9 +2,9 @@ import { vFetch } from '~/utils'
 
 /**
  *
- * @param {string} params
+ * @param {import('ofetch').FetchOptions} [options]
  * @returns {Promise<import('~/types').FetchResponse<string>>}.
  */
-export function postLamps(params) {
-  return vFetch('/login/getVerifyImg', params)
+export function postLamps(options) {
+  return vFetch('/login/getVerifyImg', options)
 }

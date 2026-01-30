@@ -3,6 +3,7 @@ import { ofetch } from 'ofetch'
 /** @type {Map<string, { controller: AbortController; id: number }>} */
 const pendingMap = new Map()
 const PENDING_ID = Symbol('pending_id')
+/** @typedef {import('ofetch').FetchOptions & Partial<Record<typeof PENDING_ID, number>>} PendingFetchOptions */
 let requestSeq = 0
 
 function isPlainObject(value) {
@@ -44,7 +45,7 @@ function getRequestKey(url, options) {
 
 /**
  * 确保请求拥有唯一 id（用于并发去重校验）
- * @param {import('ofetch').FetchOptions} options
+ * @param {PendingFetchOptions} options
  * @returns {number} 请求 id
  */
 function ensurePendingId(options) {
@@ -110,9 +111,10 @@ async function prepareRequest(ctx) {
  */
 async function handleResponse(ctx) {
   const url = getUrl(ctx)
-  const key = getRequestKey(url, ctx.options)
+  const options = /** @type {PendingFetchOptions} */ (ctx.options)
+  const key = getRequestKey(url, options)
   const entry = pendingMap.get(key)
-  if (entry && entry.id === ctx.options[PENDING_ID])
+  if (entry && entry.id === options[PENDING_ID])
     pendingMap.delete(key)
 }
 
@@ -122,9 +124,10 @@ async function handleResponse(ctx) {
  */
 async function handleError(ctx) {
   const url = getUrl(ctx)
-  const key = getRequestKey(url, ctx.options)
+  const options = /** @type {PendingFetchOptions} */ (ctx.options)
+  const key = getRequestKey(url, options)
   const entry = pendingMap.get(key)
-  if (entry && entry.id === ctx.options[PENDING_ID])
+  if (entry && entry.id === options[PENDING_ID])
     pendingMap.delete(key)
   console.error(`[Fetch Error] ${url}`, ctx.error)
 }
@@ -151,11 +154,13 @@ const instance = ofetch.create({
  * @returns {Promise<T>} 泛型响应结果
  */
 async function vFetch(url, options) {
+  /** @type {PendingFetchOptions} */
   const requestOptions = options ? { ...options } : {}
   ensurePendingId(requestOptions)
   const key = getRequestKey(url, requestOptions)
   try {
-    return await instance(url, requestOptions)
+    const result = /** @type {T} */ (await instance(url, requestOptions))
+    return result
   }
   finally {
     const entry = pendingMap.get(key)

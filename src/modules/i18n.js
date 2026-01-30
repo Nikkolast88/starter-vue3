@@ -8,13 +8,17 @@ const i18n = createI18n({
 
 /**
  * 使用 import.meta.glob 统一收集本地化资源加载器
- * @type { Record<string, () => Promise<{ default: Record<string, string>}>>}
  */
-const modules = import.meta.glob('/locales/*.yml')
+/**
+ * @typedef {{ default: Record<string, string> }} LocaleModule
+ */
+const modules = /** @type {Record<string, () => Promise<LocaleModule>>} */ (
+  import.meta.glob('/locales/*.yml')
+)
 
 const localesMap = Object.fromEntries(
   Object.entries(modules)
-    .map(([path, loadLocale]) => [path.match(/([\w-]*)\.yml$/)?.[1], loadLocale]),
+    .map(([path, loadLocale]) => [path.match(/([\w-]*)\.yml$/)?.[1] ?? path, loadLocale]),
 )
 export const availableLocales = Object.keys(localesMap)
 

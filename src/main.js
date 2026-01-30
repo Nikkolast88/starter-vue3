@@ -9,15 +9,28 @@ import '~/styles/index.css'
 
 export const createApp = createUnplugin(App, { routes }, async (ctx) => {
   /**
+   * @typedef {{ install?: import('~/types').UserModule; default?: import('~/types').UserModule }} UserModuleExports
+   */
+  ctx.router.afterEach((to) => {
+    const title = to.meta?.title || '未知'
+    if (title != null)
+      document.title = String(title)
+  })
+  /**
    * 核心模块 eager 引入，可选模块按需加载
    * @type {string[]}
    */
   const coreModulePaths = ['./modules/pinia.install.js']
-  /** @type {Record<string, { install?: import('~/types').UserModule; default?: import('~/types').UserModule }>} */
-  const coreModules = import.meta.glob(['./modules/pinia.install.js'], { eager: true })
-  /** @type {Record<string, () => Promise<{ install?: import('~/types').UserModule; default?: import('~/types').UserModule }>>} */
-  const optionalModules = import.meta.glob('./modules/*.install.js')
+  const coreModules = /** @type {Record<string, UserModuleExports>} */ (
+    import.meta.glob(['./modules/pinia.install.js'], { eager: true })
+  )
+  const optionalModules = /** @type {Record<string, () => Promise<UserModuleExports>>} */ (
+    import.meta.glob('./modules/*.install.js')
+  )
 
+  /**
+   * @param {UserModuleExports} module
+   */
   async function installModule(module) {
     const install = module.install ?? module.default
     await install?.(ctx)

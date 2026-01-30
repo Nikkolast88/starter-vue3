@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "target": "ESNext",
-    "lib": ["DOM", "ESNext"],
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
     "baseUrl": ".",
     "module": "ESNext",
     "moduleResolution": "bundler",
@@ -11,10 +11,17 @@
     "resolveJsonModule": true,
     "types": ["vite/client"],
     "allowJs": true,
-    "checkJs": false,
+    "checkJs": true,
     "esModuleInterop": true,
     "isolatedModules": true,
     "skipLibCheck": true
+  },
+  "vueCompilerOptions": {
+    "plugins": [
+      {
+        "name": "vue-router/volar"
+      }
+    ]
   },
   "include": ["./src/**/*.d.ts", "./src/**/*.js", "./src/**/*.vue"],
   "exclude": ["node_modules", "dist"]
