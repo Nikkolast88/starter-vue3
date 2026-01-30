@@ -12,8 +12,9 @@ import { createRouter, createWebHistory } from 'vue-router'
 export function createUnplugin(App, routerOptions, initFn, options = {}) {
   async function createClientAppContext() {
     const app = createClientApp(App)
+    const base = routerOptions?.base ?? import.meta.env.BASE_URL
     const router = createRouter({
-      history: createWebHistory(),
+      history: createWebHistory(base),
       ...routerOptions,
     })
     const context = {
