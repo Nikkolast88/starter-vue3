@@ -18,11 +18,9 @@ export const createApp = createUnplugin(App, { routes }, async (ctx) => {
   })
   /**
    * 核心模块 eager 引入，可选模块按需加载
-   * @type {string[]}
    */
-  const coreModulePaths = ['./modules/pinia.install.js']
   const coreModules = /** @type {Record<string, UserModuleExports>} */ (
-    import.meta.glob(['./modules/pinia.install.js'], { eager: true })
+    import.meta.glob('./modules/core/*.install.js', { eager: true })
   )
   const optionalModules = /** @type {Record<string, () => Promise<UserModuleExports>>} */ (
     import.meta.glob('./modules/*.install.js')
@@ -45,9 +43,7 @@ export const createApp = createUnplugin(App, { routes }, async (ctx) => {
     }
   }
 
-  for (const [path, loadModule] of Object.entries(optionalModules)) {
-    if (coreModulePaths.includes(path))
-      continue
+  for (const loadModule of Object.values(optionalModules)) {
     try {
       const module = await loadModule()
       await installModule(module)

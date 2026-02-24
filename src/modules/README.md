@@ -2,8 +2,8 @@
 
 `src/main.js` 会自动加载 `src/modules` 下的安装模块。
 
-- 核心模块：在 `coreModulePaths` 中声明，并 `eager` 引入
-- 可选模块：默认按需异步加载（文件名需匹配 `*.install.js`）
+- 核心模块：放在 `src/modules/core`，并 `eager` 引入
+- 可选模块：放在 `src/modules` 根目录，默认按需异步加载（文件名需匹配 `*.install.js`）
 
 模块格式：
 

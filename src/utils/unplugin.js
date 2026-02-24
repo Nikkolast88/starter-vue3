@@ -4,7 +4,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 /**
  * 统一注册插件
  * @param {import('vue').Component} App
- * @param {{base?: string; routes: readonly import('vue-router').RouteRecordRaw[]}} routerOptions
+ * @param {{ base?: string } & Omit<import('vue-router').RouterOptions, 'history'>} routerOptions
  * @param {(context: import('~/types').Context) => Promise<void> | void} [initFn]
  * @param {import('~/types').ClientOptions} [options]
  * @returns {() => Promise<import('~/types').Context>} 返回创建客户端上下文的工厂函数

@@ -43,7 +43,7 @@
     "vite": "^7.3.1"
   },
   "simple-git-hooks": {
-    "pre-commit": "pnpm lint-staged"
+    "pre-commit": "./node_modules/.bin/lint-staged"
   },
   "lint-staged": {
     "*": "eslint . --fix"
